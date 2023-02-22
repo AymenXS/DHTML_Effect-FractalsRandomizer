@@ -6,7 +6,6 @@ window.addEventListener("load", function () {
 
   // Canvas Settings
   ctx.fillStyle = "green";
-  ctx.lineWidth = 5;
   ctx.lineCap = "round";
   ctx.shadowColor = "rgba(0,0,0,0.7)";
   ctx.shadowOffsetX = 1;
@@ -20,6 +19,7 @@ window.addEventListener("load", function () {
   let scale = 0.5;
   let spread = 0.5;
   let color = "hsl(" + Math.floor(Math.random() * 360) + "0,100%, 50%)";
+  let lineWidth = Math.floor(Math.random() * 10 + 5);
 
   // Controls
   const randomizeButton = document.getElementById("randomizeButton");
@@ -51,6 +51,7 @@ window.addEventListener("load", function () {
   function drawFractal() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
+    ctx.lineWidth = lineWidth;
     ctx.strokeStyle = color;
     ctx.translate(canvas.width / 2, canvas.height / 2);
     for (let i = 0; i < sides; i++) {
@@ -62,6 +63,7 @@ window.addEventListener("load", function () {
   drawFractal();
 
   function randomizeFractal() {
+    lineWidth = Math.floor(Math.random() * 10 + 5);
     sides = Math.floor(Math.random() * 7 + 2);
     scale = Math.random() * 0.4 + 0.2;
     spread = Math.random() * Math.PI + 0.1;
