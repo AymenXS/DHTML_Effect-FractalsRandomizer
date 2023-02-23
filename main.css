@@ -24,7 +24,7 @@ body {
 
 button {
   padding: 5px 15px;
-  font-size: 30px;
+  font-size: 20px;
   border: none;
   cursor: pointer;
   transition: 0.2s;
@@ -39,4 +39,11 @@ label,
 input {
   color: black;
   font-size: 15px;
+}
+
+#variations {
+  position: absolute;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
 }
