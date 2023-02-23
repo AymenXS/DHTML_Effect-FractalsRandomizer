@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: ITC Eras Std Medium, Poppins;
 }
 
 #canvas {
@@ -24,7 +25,6 @@ body {
 button {
   padding: 5px 15px;
   font-size: 30px;
-  font-family: ITC Eras Std Medium, Poppins;
   border: none;
   cursor: pointer;
   transition: 0.2s;
@@ -33,4 +33,10 @@ button {
 button:hover {
   background-color: rgb(51, 157, 199);
   color: white;
+}
+
+label,
+input {
+  color: black;
+  font-size: 15px;
 }
