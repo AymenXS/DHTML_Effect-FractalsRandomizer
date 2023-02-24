@@ -12,12 +12,12 @@ window.addEventListener("load", function () {
   ctx.shadowBlur = 4.5;
 
   // Effect Settings
-  const size = canvas.width < canvas.height ? canvas.width * 0.25 : canvas.height * 0.25;
-  const maxLevel = 4;
+  const maxLevel = 6;
   const branches = 2;
+  let size = canvas.width < canvas.height ? canvas.width * 0.25 : canvas.height * 0.25;
   let sides = 5;
-  let scale = 0.5;
-  let spread = 0.5;
+  let scale = 0.7;
+  let spread = 0.6;
   let color = "hsl(" + Math.floor(Math.random() * 360) + "0,100%, 50%)";
   let lineWidth = Math.floor(Math.random() * 10 + 5);
 
@@ -68,19 +68,19 @@ window.addEventListener("load", function () {
     for (let i = 0; i < branches; i++) {
       ctx.save();
       ctx.translate(size - (size / branches) * i, 0);
-      ctx.rotate(spread);
       ctx.scale(scale, scale);
-
-      drawBranch(level + 1);
-      ctx.restore();
 
       ctx.save();
-      ctx.translate(size - (size / branches) * i, 0);
-      ctx.rotate(-spread);
-      ctx.scale(scale, scale);
+      ctx.rotate(spread);
+
       drawBranch(level + 1);
       ctx.restore();
+
+      ctx.restore();
     }
+    ctx.beginPath();
+    ctx.arc(0, size, size * 0.1, 0, Math.PI * 2);
+    ctx.fill();
   }
 
   function drawFractal() {
@@ -88,6 +88,7 @@ window.addEventListener("load", function () {
     ctx.save();
     ctx.lineWidth = lineWidth;
     ctx.strokeStyle = color;
+    ctx.fillStyle = color;
     ctx.translate(canvas.width / 2, canvas.height / 2);
     for (let i = 0; i < sides; i++) {
       ctx.rotate((Math.PI * 2) / sides);
@@ -100,7 +101,7 @@ window.addEventListener("load", function () {
   function randomizeFractal() {
     lineWidth = Math.floor(Math.random() * 10 + 5);
     sides = Math.floor(Math.random() * 7 + 2);
-    scale = Math.random() * 0.4 + 0.2;
+    scale = Math.random() * 0.4 + 0.4;
     spread = Math.random() * Math.PI + 0.1;
     color = "hsl(" + Math.floor(Math.random() * 360) + "0,100%, 50%)";
     drawFractal();
@@ -115,4 +116,16 @@ window.addEventListener("load", function () {
     color = "hsl(" + Math.floor(Math.random() * 360) + "0,100%, 50%)";
     lineWidth = 15;
   }
+
+  window.addEventListener("resize", function () {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    size = canvas.width < canvas.height ? canvas.width * 0.25 : canvas.height * 0.25;
+    ctx.fillStyle = "green";
+    ctx.lineCap = "round";
+    ctx.shadowColor = "rgba(0,0,0,0.7)";
+    ctx.shadowOffsetX = 1;
+    ctx.shadowBlur = 4.5;
+    drawFractal();
+  });
 });
