@@ -59,12 +59,17 @@ window.addEventListener("load", function () {
     labelSides.innerText = "Sides: " + sides;
   }
 
+  // This function is the prototype of one "Side", "Branches" and the "Depth" of the fractal [maxLevel]
+
   function drawBranch(level) {
-    if (level === maxLevel) return;
+    // This block of code concern one "Side"
+    if (level === maxLevel) return; // "level" concern the "Depth"
     ctx.beginPath();
     ctx.moveTo(0, 0);
     ctx.lineTo(size, 0);
     ctx.stroke();
+
+    // This block of code is responsible for "Branches"
     for (let i = 0; i < branches; i++) {
       ctx.save();
       ctx.translate(size - (size / branches) * i, 0);
@@ -74,15 +79,16 @@ window.addEventListener("load", function () {
       drawBranch(level + 1);
       ctx.restore();
 
-      ctx.save();
+      // ctx.save(); // If it breaks, uncomment this
       ctx.translate(size - (size / branches) * i, 0);
       ctx.rotate(-spread);
       ctx.scale(scale, scale);
       drawBranch(level + 1);
-      ctx.restore();
+      // ctx.restore(); // If it breaks, uncomment this
     }
   }
 
+  // This function concern the drawing of the prototype (color, width, number of "Sides")
   function drawFractal() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
