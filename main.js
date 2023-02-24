@@ -79,12 +79,12 @@ window.addEventListener("load", function () {
       drawBranch(level + 1);
       ctx.restore();
 
-      // ctx.save(); // If it breaks, uncomment this
+      ctx.save();
       ctx.translate(size - (size / branches) * i, 0);
       ctx.rotate(-spread);
       ctx.scale(scale, scale);
       drawBranch(level + 1);
-      // ctx.restore(); // If it breaks, uncomment this
+      ctx.restore();
     }
   }
 
