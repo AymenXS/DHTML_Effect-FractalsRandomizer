@@ -31,6 +31,7 @@ window.addEventListener("load", function () {
 
   randomizeButton.addEventListener("click", function () {
     randomizeFractal();
+    updateSliders();
     drawFractal();
   });
 
@@ -58,6 +59,7 @@ window.addEventListener("load", function () {
     sliderSides.value = sides;
     labelSides.innerText = "Sides: " + sides;
   }
+  updateSliders();
 
   // This function is the prototype of one "Side", "Branches" and the "Depth" of the fractal [maxLevel]
 
@@ -109,8 +111,6 @@ window.addEventListener("load", function () {
     scale = Math.random() * 0.4 + 0.2;
     spread = Math.random() * Math.PI + 0.1;
     color = "hsl(" + Math.floor(Math.random() * 360) + "0,100%, 50%)";
-    drawFractal();
-    updateSliders();
   }
 
   function resetFractal() {

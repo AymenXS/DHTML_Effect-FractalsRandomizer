@@ -31,6 +31,7 @@ window.addEventListener("load", function () {
 
   randomizeButton.addEventListener("click", function () {
     randomizeFractal();
+    updateSliders();
     drawFractal();
   });
 
@@ -104,8 +105,6 @@ window.addEventListener("load", function () {
     scale = Math.random() * 0.4 + 0.4;
     spread = Math.random() * Math.PI + 0.1;
     color = "hsl(" + Math.floor(Math.random() * 360) + "0,100%, 50%)";
-    drawFractal();
-    updateSliders();
   }
 
   function resetFractal() {

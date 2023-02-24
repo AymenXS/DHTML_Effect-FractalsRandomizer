@@ -12,14 +12,15 @@ window.addEventListener("load", function () {
   ctx.shadowBlur = 4.5;
 
   // Effect Settings
-  const maxLevel = 6;
-  const branches = 2;
-  let size = canvas.width < canvas.height ? canvas.width * 0.25 : canvas.height * 0.25;
-  let sides = 5;
-  let scale = 0.7;
-  let spread = 0.6;
-  let color = "hsl(" + Math.floor(Math.random() * 360) + "0,100%, 50%)";
-  let lineWidth = Math.floor(Math.random() * 10 + 5);
+  let size = canvas.width < canvas.height ? canvas.width * 0.1 : canvas.height * 0.1;
+  const maxLevel = 8;
+  const branches = 1;
+
+  let sides = 10;
+  let scale = 0.85;
+  let spread = -0.2;
+  let color = "hsl(" + Math.random() * 360 + "0,100%, 50%)";
+  let lineWidth = 30;
 
   // Controls
   const randomizeButton = document.getElementById("randomizeButton");
@@ -31,6 +32,7 @@ window.addEventListener("load", function () {
 
   randomizeButton.addEventListener("click", function () {
     randomizeFractal();
+    updateSliders();
     drawFractal();
   });
 
@@ -58,16 +60,19 @@ window.addEventListener("load", function () {
     sliderSides.value = sides;
     labelSides.innerText = "Sides: " + sides;
   }
+  updateSliders();
 
+  let pointX = 0;
+  let pointY = size;
   function drawBranch(level) {
     if (level === maxLevel) return;
     ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(size, 0);
+    ctx.moveTo(pointX, pointY);
+    ctx.bezierCurveTo(0, size * spread * -3, size * 5, size * 10 * spread, 0, 0);
     ctx.stroke();
     for (let i = 0; i < branches; i++) {
       ctx.save();
-      ctx.translate(size - (size / branches) * i, 0);
+      ctx.translate(pointX, pointY);
       ctx.scale(scale, scale);
 
       ctx.save();
@@ -79,7 +84,7 @@ window.addEventListener("load", function () {
       ctx.restore();
     }
     ctx.beginPath();
-    ctx.arc(0, size, size * 0.1, 0, Math.PI * 2);
+    ctx.arc(-size / 2, 0, 40, 0, Math.PI * 2);
     ctx.fill();
   }
 
@@ -91,7 +96,8 @@ window.addEventListener("load", function () {
     ctx.fillStyle = color;
     ctx.translate(canvas.width / 2, canvas.height / 2);
     for (let i = 0; i < sides; i++) {
-      ctx.rotate((Math.PI * 2) / sides);
+      ctx.scale(0.95, 0.95);
+      ctx.rotate((Math.PI * 6) / sides);
       drawBranch(0);
     }
     ctx.restore();
@@ -99,22 +105,19 @@ window.addEventListener("load", function () {
   drawFractal();
 
   function randomizeFractal() {
-    lineWidth = Math.floor(Math.random() * 10 + 5);
-    sides = Math.floor(Math.random() * 7 + 2);
-    scale = Math.random() * 0.4 + 0.4;
-    spread = Math.random() * Math.PI + 0.1;
+    sides = Math.floor(Math.random() * 18 + 2);
+    spread = Math.random() * 0.6 - 0.3;
     color = "hsl(" + Math.floor(Math.random() * 360) + "0,100%, 50%)";
-    drawFractal();
-    updateSliders();
+    lineWidth = Math.floor(Math.random() * 30 + 20);
   }
 
   function resetFractal() {
-    sides = 5;
-    scale = 0.5;
-    spread = 0.7;
+    sides = 15;
+    scale = 0.85;
+    spread = 0.2;
     sides = 5;
     color = "hsl(" + Math.floor(Math.random() * 360) + "0,100%, 50%)";
-    lineWidth = 15;
+    lineWidth = 30;
   }
 
   window.addEventListener("resize", function () {
